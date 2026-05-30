@@ -47,6 +47,19 @@ gobuster dir -u http://10.10.10.10/ -w /usr/share/wordlists/dirb/common.txt -s 2
 
 
 curl [オプション] <URL>
+	Web診断やCTFでHTTP通信の挙動を確認する際に使用
+
+
+-i	ヘッダーを含めて表示（ステータスコードやLocation確認）
+-s	サイレントモード（進捗やエラー非表示）
+-L	リダイレクトを自動追跡
+-X	HTTPメソッド指定（例：-X POST）
+-H	ヘッダー追加（例：-H "Host: 127.0.0.1"）
+-A	User-Agent指定
+-d	POSTデータ送信
+-o	出力をファイルに保存
+--cookie	Cookieを指定して送信
+--head	ヘッダーだけ取得（HEADメソッド）
 
 • 403 Forbidden：アクセスは拒否されているが、認証や条件付きアクセスの可能性がある。
 • 401 Unauthorized：認証が必要なことを示す。Cookie やヘッダーで認証情報を送れば通る可能性あり。
