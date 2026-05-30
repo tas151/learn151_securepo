@@ -1,0 +1,62 @@
+#Gobusterは、Web診断やCTFでディレクトリ探索を自動化する際に使用するツール。
+#特にdirモードは、隠し管理画面やバックアップファイルの発見に有効。
+
+• Webディレクトリ列挙 → common.txt, directory-list-2.3-medi.umtxt
+⇒ここで取得した情報をwebまたはcurlを使って調べる
+• パスワードクラッキング → rockyou.txt, darkweb2017-top10000.txt
+• DNS列挙 → dns-Jhaddix.txt
+• ファイル拡張子列挙 → raft-ext.txt
+
+目的：Webサーバー上の隠しディレクトリ、ファイル、DNSサブドメイン、S3バケットなどを列挙する
+
+言語：Go（Golang）で書かれており、高速
+
+主なモード：
+
+dir：ディレクトリ列挙
+
+dns：DNSサブドメイン列挙
+
+vhost：仮想ホスト列挙
+
+s3：Amazon S3バケット列挙
+
+fuzz：汎用的なFUZZ列挙
+
+・隠しディレクトリを探索する際、-wで指定したwordlistと-tによる並列処理(通常10~20)で効率化を図る
+
+-u	ターゲットURLを指定
+-w	辞書ファイル（wordlist）を指定
+-x	拡張子指定（例：php, html）
+-t	スレッド数（並列処理）を指定
+-s	ステータスコード指定（例：200,403）
+-o	結果の出力ファイルを指定
+
+  -tによる並列処理(通常10~20)
+    ⇒100を超える数を指定するとDosに近い動きになるため、使用してはいけない
+
+
+gobuster dir -u http://IPアドレスなど -w 辞書ファイルのパス（/usr/share/wordlists/XXXXX）
+
+gobuster dir -u http://10.10.10.10/ -w /usr/share/wordlists/dirb/common.txt -x php,html,txt
+　⇒拡張子指定
+
+gobuster dir -u http://10.10.10.10/ -w /usr/share/wordlists/dirb/common.txt -s 200,403
+　⇒403 Forbiddenも拾う
+
+
+
+curl [オプション] <URL>
+
+• 403 Forbidden：アクセスは拒否されているが、認証や条件付きアクセスの可能性がある。
+• 401 Unauthorized：認証が必要なことを示す。Cookie やヘッダーで認証情報を送れば通る可能性あり。
+(curl )-H や --cookie を使うことで、アクセス制限のバイパスや内部向け設定の偽装が試せる。
+
+ Gobuster で見つけたパスに対して curl -i を使う理由
+ 理由
+	• curl -i は HTTPヘッダーとステータスコードを表示する。
+	• Gobuster はステータスコードしか表示しないため、ヘッダーの詳細（Location, Server, Set-Cookie など）を確認するには curl が必要。
+
+流れ
+①探査コマンドを用いて、目的のIPやホストを調査
+②curlコマンドを用いて、403 Forbiddenとなっているディレクトリを調べる。（lessをつけて中身を調べる）
