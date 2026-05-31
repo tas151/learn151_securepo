@@ -18,3 +18,4 @@ SUID　⇒　sudo -l　⇒　getcap
 の流れで調べる。
 
 ※getcap -r / 2>/dev/nullで探す
+  ⇒エラー出力を非表示にして、結果をすっきり表示させるため
