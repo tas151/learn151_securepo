@@ -7,7 +7,7 @@ find / -type -f -perm -04000 -ls 2 > /dev/null
 次に、straceコマンド（プログラムがOSにお願いしている内容をメモしている人（システムコール））を使用してexxploitできる可能性を探す。
 (SUIDはroot権限で動く＝SUIDバイナリが”存在しないファイル”を探していたら、そこに自分が作成したファイルを置けばそれをrootが読み込んでくれるのでは)
 
-starce /usr/local/bin/suid-so 2>&1 | grep -I -E "open|access|no such file"
+strace /usr/local/bin/suid-so 2>&1 | grep -I -E "open|access|no such file"
 （とりあえずSUID調査のstraceはこれを覚えればいい）
 
  /usr/local/bin/suid-soを対象としている意味
