@@ -1,0 +1,23 @@
+最初に sudo -l をして、
+例：
+Matching Defaults entries for TCM on this host:
+    env_reset, env_keep+=LD_PRELOAD
+
+User TCM may run the following commands on this host:
+    (root) NOPASSWD: /usr/sbin/iftop
+    (root) NOPASSWD: /usr/bin/vim
+    (root) NOPASSWD: /usr/bin/nano
+    (root) NOPASSWD: /usr/bin/man
+    (root) NOPASSWD: /usr/bin/awk
+    (root) NOPASSWD: /usr/bin/less
+    (root) NOPASSWD: /usr/bin/find
+    (root) NOPASSWD: /usr/sbin/apache2
+    (root) NOPASSWD: /bin/more
+
+のような文字が出てきたら、上記のコマンドから外部コマンド実行をおこすことで、root権限に昇格させる。（コマンド文は要調査）
+
+
+例のように出てきたコマンドはで外部コマンドを実行できるのであれば、/bin/shをを呼び出してrootをとれる可能性あり。
+
+目安として以下のものが出れば/bin/shを呼び出す
+「find」「awk」「vim」「man」「less」「more」「nmap」「ftp」
