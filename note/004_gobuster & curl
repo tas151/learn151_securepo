@@ -3,7 +3,7 @@
 
 1 gobuster dir -u http://IPアドレスなど -w 辞書ファイルのパス（/usr/share/wordlists/XXXXX）
 　
-• Webディレクトリ列挙 → common.txt, directory-list-2.3-medi.umtxt
+• Webディレクトリ列挙 → common.txt, directory-list-2.3-medium.txt
 ⇒ここで取得した情報をwebまたはcurlを使って調べる
 • パスワードクラッキング → rockyou.txt, darkweb2017-top10000.txt
 • DNS列挙 → dns-Jhaddix.txt
