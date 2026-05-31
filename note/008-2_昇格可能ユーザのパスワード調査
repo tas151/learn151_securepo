@@ -31,4 +31,4 @@ SUIDバイナリを見つけたら、exploitをする
 流れ：GTFOBins　→　（MITRE CVE）　→　NVD　→　Exploit-DB
 でexploit方法を探す
 
-CVD番号+exploit-dbで検索して、POCを探す（実務ではローカル検証以外使用禁止だが、CTFやTHMでは使用可）
+CVE番号+exploit-dbで検索して、POCを探す（実務ではローカル検証以外使用禁止だが、CTFやTHMでは使用可）
