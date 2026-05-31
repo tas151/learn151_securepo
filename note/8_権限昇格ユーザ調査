@@ -1,0 +1,31 @@
+権限昇格ユーザ調査に使うのはLinEnum.sh
+kaliには標準装備されていなかったため、
+Git cloneで持ってきた。
+
+パス:~/LinEnum/LinEnum.sh
+
+しかし、LinEnum.shはローカル上のものを調査するスクリプトになる
+⇒つまり、対象サーバ（THMのIP先）へ持っていく必要がある。
+
+コマンド:scp Lin.Enum.sh user@IP:/dev/shm(揮発性のため基本ここ)
+
+持っていったら、sshでつなぐ
+
+コマンド:ssh user@IP
+
+パスワードを入力してIP先には入れたら、LinEnum.shを置いた場所を確認
+
+コマンド: ./LinEnum.sh (-t) > /dev/shm/適当なファイル名 2>&1
+
+ログファイルが取れたことを確認し、exit
+ローカル環境から
+
+コマンド:scp ユーザ名@IP /dev/shm/適当なファイル名 /tmp
+
+※IP先のLinEnum.shやログファイルは消去するとよい
+
+LinEnum.sh
+確認ポイント①　uidが1000以降のものを探し、そのユーザが「27(sudo)」となっているものを見つける
+確認ポイント②　”Accounts that have recently used sudo”のユーザを確認
+
+　⇒同じユーザがあれば間違いなく権限昇格可能なユーザといえる
