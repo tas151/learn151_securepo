@@ -1,0 +1,36 @@
+最初に、侵入先でSUIDバイナリがついているファイルを見つける
+
+find / -type -f -perm -04000 -ls 2 > /dev/null
+
+(-lsは所有者・権限・更新日時を一目でわかるようにしている)
+
+次に、straceコマンド（プログラムがOSにお願いしている内容をメモしている人（システムコール））を使用してexxploitできる可能性を探す。
+(SUIDはroot権限で動く＝SUIDバイナリが”存在しないファイル”を探していたら、そこに自分が作成したファイルを置けばそれをrootが読み込んでくれるのでは)
+
+starce /usr/local/bin/suid-so 2>&1 | grep -I -E "open|access|no such file"
+（とりあえずSUID調査のstraceはこれを覚えればいい）
+
+ /usr/local/bin/suid-soを対象としている意味
+　→まず/usr/local/binは管理者独自のディレクトリ
+　　→ここにあるSUIDバイナリはOSが保証していないプログラムがある可能性が高い
+　　　→suid-soとはSUIDのshared object（共有ライブラリ）⇒SUIDバイナリが.so（共有ライブラリ）を読み込むならば、.soを置けばrootで実行される
+
+straceで探す文は
+“ユーザーが書ける場所” を root が open()/access() でファイルを探そうとして、ENOENT（存在しない） が出る
+これが出れば ほぼ確定で exploit
+
+例：open("/home/user/.config/libcalc.so", O_RDONLY) = -1 ENOENT
+
+ここで悪意あるlibcalc.soをパス配下に置けば、次回SUIDがプログラム実行時に、rootで実行してしまう。
+　→不要なパスは書かないこと、絶対パスで記載することが大切。
+
+以下ユーザが書ける場所であるか、exploitが可能かの表となる。参考に
+
+/home/user/	        ✔ 書ける	★★★★★
+/home/user/.config/	✔ 書ける	★★★★★
+/tmp/	              ✔ 書ける	★★★★★
+/dev/shm/	          ✔ 書ける	★★★★☆
+/var/tmp/	          ✔ 書ける	★★★★☆
+/usr/local/	        ✗ 書けない	☆☆☆☆☆
+/usr/local/bin/	    ✗ 書けない	☆☆☆☆☆
+/etc/	              ✗ 書けない	☆☆☆☆☆
