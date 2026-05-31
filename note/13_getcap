@@ -1,0 +1,20 @@
+getcapはファイルにどんな特別権限(Capabilities)がついているかを確認するコマンド
+
+getcap <ファイル名>
+
+以下のような回答が返ってくる
+
+
+Capability(権限拡張)	  危険度	      理由
+cap_setuid+ep	        ★★★★★	  UID を変えられる → root になれる可能性
+cap_sys_admin+ep	    ★★★★★  	ほぼ root と同じ
+cap_setgid+ep	        ★★★★☆	  GID を変えられる
+
++epの「ep」とは？　e(effective) p(permitted)の略
+この2つがそろうと完全に有効化されているということ（権限はあるし、いつでも~~+epの~~の部分が可能）
+
+チェックの流れとして、
+SUID　⇒　sudo -l　⇒　getcap
+の流れで調べる。
+
+※getcap -r / 2>/dev/nullで探す
