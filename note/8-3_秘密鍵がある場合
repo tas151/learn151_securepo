@@ -1,0 +1,11 @@
+Id_rsa（秘密鍵）がある場合
+
+目的：SSH秘密鍵ファイルをJohnが扱える形式に変換すること
+
+①ssh2johnで変換する
+Ssh2john id_rsa> id_rsa.hash
+
+②John the Ripperでクラック
+john --wordlist=/usr/share/wordlist/rockyou.txt id_rsa.hash
+
+③判明したパスワードで侵入
