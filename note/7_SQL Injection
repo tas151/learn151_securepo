@@ -1,0 +1,14 @@
+コマンド：searchsploit ＜サービス名＞ ＜バージョン＞
+
+出てきたPATHを<PATH>へコピーする
+コマンド：searchsploit -m <PATH>
+
+ExploitDB の Web ページを確認
+コマンド：searchsploit -w <サービス名>
+
+ExploitDB を最新にする
+コマンド：searchsploit -u
+
+Python3で実行できない場合
+Githubかexploit-dbで実行できるものを探す
+その際46635.py(例)は変わらないためそれもキーワードに入れるといい
