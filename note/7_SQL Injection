@@ -12,3 +12,19 @@ ExploitDB を最新にする
 Python3で実行できない場合
 Githubかexploit-dbで実行できるものを探す
 その際46635.py(例)は変わらないためそれもキーワードに入れるといい
+
+
+＜サービス名＞ ＜バージョン＞ exploit-db
+例：CMS Made Simple version 2.2.8 exploit-db
+
+②Webで以下のように調べる
+＜サービス名＞ ＜バージョン＞ RCE exploit
+例：CMS Made Simple version 2.2.8 RCE exploit
+
+③ターミナルで以下を実行する
+searchsploit ＜サービス名＞ ＜バージョン＞
+
+出力結果にある
+PocはここのPATHの部分
+使い方：
+search -m php/webapps/46635.py
