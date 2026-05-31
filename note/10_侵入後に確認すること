@@ -1,0 +1,12 @@
+設定ファイルにパスワードが残っているかも？
+→/etc/mysql/debian.cnf
+/var/www/html/config.php
+env
+bash_history/etc/openvpn/server.conf（サーバ側）
+を調べてパスワードが残ってないか調査する
+
+コマンドで打たれてパスワードが履歴に残っているかも？
+→~/.bash_historyを確認する
+（
+Linux のシェルは、ユーザーが実行したコマンドを ~/.bash_history に保存する。
+）
