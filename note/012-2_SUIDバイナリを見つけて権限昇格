@@ -1,4 +1,4 @@
-strings /usr/bin/local/suid-env
+strings /usr/local/bin/suid-env
 でバイナリ（実行ファイル）内の読める文字を抽出
 その中には、ごみデータと関数とパスなどがある。
 今回はその中にsystem関数があること、service apache2 startの文字があることに着目
@@ -8,7 +8,7 @@ system("service apache2 start")は攻撃者が「service」という名前のコ
 　→「service」コマンドを絶対パスで指定していないため、偽装が可能になる。
 
 そこで自身を①rootに偽装するスクリプト/tmp（誰でも編集可能なため）を作り（serviceという名前）、
-②PATHを/tmpから読み込ませるよう指定し、/usr/bin/local/suid-envを実行するとrootが取れるようになる
+②PATHを/tmpから読み込ませるよう指定し、/usr/local/bin/suid-envを実行するとrootが取れるようになる
 
 ①
 echo 'int main() { setgid(0); setuid(0); system("/bin/bash"); return 0; }' > /tmp/service.c
@@ -47,5 +47,6 @@ bash が出てくる場面	    見える？	    どういうとき？
 ③ スクリプト内部で起動	  見えない	    #!/bin/bash のとき
 
 ⇒“見えない bash” が root 権限で動くときが最も危険
-
+  ⇒※最近のOSやシェルでは、SUID実行時に環境変数を引き継がない仕様（セキュア実行モード）になっていることが多いため、
+  　古いカーネルや特定の環境（CTF環境など）で特に有効な手法
 
