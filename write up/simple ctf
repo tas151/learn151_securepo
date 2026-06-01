@@ -4,7 +4,7 @@
   ⇒ポート番号を調べるため、
     nmap -sV IP　を試行。（バージョンまでの調査を癖づける）
     ⇒<details>
-      <summury>nmap -sV IP 結果</summury>
+<summary>nmap -sV IP 結果</summary>
 
 ```text
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-31 21:23 EDT
@@ -17,4 +17,3 @@ PORT     STATE SERVICE VERSION
 2222/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
-</details>
