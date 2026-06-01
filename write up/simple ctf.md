@@ -24,7 +24,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ⇒上記結果から”ssh”と回答  
 
 **What's the CVE you're using against the application?**  
-・上記結果から調査順を1.ftp、2.http、3.sshとする。  
+<ins>上記結果から調査順を1.ftp、2.http、3.sshとする。</ins>  
 ftp IP ユーザ名をAnonymousで調査  
 　⇒つながったがlsの結果が返ってこなかった。  
 <details>
