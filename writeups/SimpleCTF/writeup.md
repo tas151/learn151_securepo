@@ -2,7 +2,7 @@
 
 **1　How many services are running under port 1000?**  
   ・ポート番号を調べるため、  
-  nmap -sV IP　を試行。（バージョンまでの調査を癖づける）  
+  nmap -sV IP　を試行。（実務を想定し、常にバージョン調査まで行うことを意識する）  
 <details>
 <summary>nmap -sV IP 結果</summary>
 
@@ -19,7 +19,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 </details>
 
-⇒上記結果から”2”と回答  
+⇒上記結果から1000以下のポートの数を”2”と回答  
 2 **What is running on the higher port?**  
 ⇒上記結果から”ssh”と回答  
 
@@ -35,7 +35,7 @@ ftp> ls
 229 Entering Extended Passive Mode (|||49297|)
 ⇒ポート49297に接続できていないということが分かった。（原因はファイアウォールが閉じているからかも？EPSVという受け渡し法が壊れている可能性もあり）
 
-&nbsp;⇒しかし侵入できているため、下記コマンドで対処
+⇒しかし侵入できているため、下記コマンドで対処
 
 ftp> passive off
 Passive mode: off; fallback to active mode: off.
@@ -51,8 +51,8 @@ ftp> get ForMitch.txt
 100% |***********************************************************|   166      148.86 KiB/s    00:00 ETA
 226 Transfer complete.
 
-&nbsp;⇒ローカル上にtxtファイルを転送した。
-&nbsp;&nbsp;⇒しかし、中身を見るに今問いに関係がなさそうのため、保留
+⇒ローカル上にtxtファイルを転送した。
+　⇒しかし、中身を見るに今問いに関係がなさそうのため、保留
 
 cat ForMitch.txt 
 Dammit man... you'te the worst dev i've seen. You set the same pass for the system user,
@@ -111,21 +111,20 @@ Shellcodes: No Results
 ```
 </details>
 
-⇒http調査の結果、Pathに記載のある　php/webapps/46635.py　の46635(exploit-db iD)を利用して、
+⇒http調査の結果、Pathに記載のある　php/webapps/46635.py　の46635(exploit-db iD)を利用して、  
 　WebからCVEを特定する  
  　その結果**CVE-2019-9053**と判明したため、回答。
 
 4 What's the password?
 
-⇒http調査の結果、今回の脆弱性が**SQL Injection**と判明した。  
-  しかし文字数が4文字のため**SQLI**回答。
+⇒HTTP調査の結果より、脆弱性の種類は SQLI (SQL Injection) と判明した。
 
 5 What's the password?
 
 ⇒脆弱性とPOCが判明したため、実際に動かしていく  
 　が、この46635.pyファイルが2.x用であったため、これを3.x用にしなければならない
 
- ⇒しかし、kaliのOSの中核であるpythonを削除したり上書きすると壊れてしまう。
+ ⇒しかし、kaliのOSの中核であるpythonを削除したり上書きすると壊れてしまう。  
  　そのため、pyenv（pythonバージョンの共存）を環境で使えるようにする。（別の部屋を追加するイメージ）
 
 ・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっとエラーがはかれた  
@@ -140,7 +139,7 @@ pyenvを利用して3.11.9のバージョンを共存させた
 それをpython3 -m python3 -w 46635.py で3.11用に変換した
 （python3はlib2to3がある親ディレクトリ）
 そのままでは使えないため、手動で修正を試みたのだが、ここで詰まった
-最終的な原因としてはインデントのずれ、だと思われる
+最終的な原因としてはインデントのずれ、と推測
 :set expandtabや:retabを使ったりしてインデントをそろえた
 が、いろいろと修正しているため絶対にこれ!とはいえない
 
