@@ -5,6 +5,7 @@
     nmap -sV IP　を試行。（バージョンまでの調査を癖づける）
     ⇒<details>
       <summury>nmap -sV IP 結果<summury>
+
 ```text
 Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-31 21:23 EDT
 Nmap scan report for 10.49.146.66
