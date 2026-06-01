@@ -3,7 +3,6 @@
 1　How many services are running under port 1000?
   ⇒ポート番号を調べるため、
     nmap -sV IP　を試行。（バージョンまでの調査を癖づける）
-    ⇒
 <details>
 <summary>nmap -sV IP 結果</summary>
 
@@ -18,3 +17,7 @@ PORT     STATE SERVICE VERSION
 2222/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
+    ⇒上記結果から”2”と回答
+      ⇒上記結果から調査順を第一ftp、第二をhttp、第三をsshとする
+        ⇒ftp IP でユーザ名Anonymousで入れないかを試行
+          ⇒結果、
