@@ -1,8 +1,8 @@
 #以下はsimple ctfを解くときの軌跡を記録する
 
-1　How many services are running under port 1000?  
-  ⇒ポート番号を調べるため、  
-    nmap -sV IP　を試行。（バージョンまでの調査を癖づける）  
+**1　How many services are running under port 1000?**  
+  ・ポート番号を調べるため、  
+  nmap -sV IP　を試行。（バージョンまでの調査を癖づける）  
 <details>
 <summary>nmap -sV IP 結果</summary>
 
@@ -20,12 +20,13 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 </details>
 
 ⇒上記結果から”2”と回答  
-&nbsp;⇒What is running on the higher port?
-&nbsp;&nbsp;⇒上記結果から”ssh”と回答  
-&nbsp;&nbsp;&nbsp;⇒What's the CVE you're using against the application?  
-&nbsp;&nbsp;&nbsp;&nbsp;⇒上記結果から調査順を1.ftp、2.http、3.sshとする。  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇒ftp IP ユーザ名をAnonymousで調査  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇒つながったがlsの結果が返ってこなかった。  
+**What is running on the higher port?**  
+⇒上記結果から”ssh”と回答  
+
+**What's the CVE you're using against the application?**  
+・上記結果から調査順を1.ftp、2.http、3.sshとする。  
+ftp IP ユーザ名をAnonymousで調査  
+⇒つながったがlsの結果が返ってこなかった。  
 <details>
 <summary>FTP調査</summary>
 
