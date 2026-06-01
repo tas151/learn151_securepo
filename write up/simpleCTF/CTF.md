@@ -130,7 +130,7 @@ Shellcodes: No Results
 
 ・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっとエラーがはかれた  
 ⇒何度も/etc/skel/bashrcから初期化したがなおらず  
-⇒そもそもkali linuxはbashシェルじゃなくてzshシェルを使っていることが分かった(echo $SHELLより)
+⇒そもそもkali linuxはbashシェルじゃなくてzshシェルを使っていることが分かった(echo $SHELLより)  
 そのためpyenvの設定をzshrcに記載した<details>
 <summary>46635.pyを3.x用に変換する際にものすごく詰まったため、何をやったかを記載</summary>
 
