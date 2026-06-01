@@ -26,7 +26,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 **What's the CVE you're using against the application?**  
 ・上記結果から調査順を1.ftp、2.http、3.sshとする。  
 ftp IP ユーザ名をAnonymousで調査  
-⇒つながったがlsの結果が返ってこなかった。  
+　⇒つながったがlsの結果が返ってこなかった。  
 <details>
 <summary>FTP調査</summary>
 
@@ -61,5 +61,5 @@ Dammit man... you'te the worst dev i've seen. You set the same pass for the syst
 ```
 </details>
 
-⇒httpの調査に取り掛かる  
-&nbsp;⇒
+・httpの調査に取り掛かる  
+　⇒
