@@ -128,7 +128,7 @@ Shellcodes: No Results
  ⇒しかし、kaliのOSの中核であるpythonを削除したり上書きすると壊れてしまう。
  　そのため、pyenv（pythonバージョンの共存）を環境で使えるようにする。（別の部屋を追加するイメージ）
 
-・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっとエラーがはかれた
+・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっとエラーがはかれた  
 ⇒何度も/etc/skel/bashrcから初期化したがなおらず  
 ⇒そもそもkali linuxはbashシェルじゃなくてzshシェルを使っていることが分かった(echo $SHELLより)
 そのためpyenvの設定をzshrcに記載した<details>
