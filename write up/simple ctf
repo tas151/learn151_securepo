@@ -3,7 +3,7 @@
 1　How many services are running under port 1000?
   ⇒ポート番号を調べるため、
     nmap -sV IP　を試行。（バージョンまでの調査を癖づける）
-    ⇒<details>
+    ⇒</details>
       <summury>nmap -sV IP 結果</summury>
 
 ```text
