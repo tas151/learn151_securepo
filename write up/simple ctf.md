@@ -57,7 +57,6 @@ ftp> get ForMitch.txt
 cat ForMitch.txt 
 Dammit man... you'te the worst dev i've seen. You set the same pass for the system user,
  and the password is so weak... i cracked it in seconds. Gosh... what a mess!
-
 ```
 </details>
 
