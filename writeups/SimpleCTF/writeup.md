@@ -169,16 +169,16 @@ python3 46635.py -u http://IP | less
 python3 46635.py -u http://IP/simple/ > sqli.txt  
 にて結果をテキストに出力させる  
 
-[+] Salt for password found: ハッシュ
-[+] Username found: xxx
-[+] Email found: xxx
-[+] Password found: ハッシュ
+[+] Salt for password found: ハッシュ  
+[+] Username found: xxx  
+[+] Email found: xxx  
+[+] Password found: ハッシュ  
 
-といった結果が複数出力されるため、一番最後の
-Salt for password found
-Password found
-のみファイル保存
-⇒そのため<inc>ハッシュ値:ハッシュ値</inc>という形にしてjohn実行
+といった結果が複数出力されるため、一番最後の  
+Salt for password found  
+Password found  
+のみファイル保存  
+⇒そのため<ins>ハッシュ値:ハッシュ値</ins>という形にしてjohn実行
 
 
 
