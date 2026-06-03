@@ -130,7 +130,8 @@ Shellcodes: No Results
 ・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっとエラーがはかれた  
 ⇒何度も/etc/skel/bashrcから初期化したがなおらず  
 ⇒そもそもkali linuxはbashシェルじゃなくてzshシェルを使っていることが分かった(echo $SHELLより)  
-そのためpyenvの設定をzshrcに記載した<details>
+そのためpyenvの設定をzshrcに記載した
+<details>
 <summary>46635.pyを3.x用に変換する際にものすごく詰まったため、何をやったかを記載</summary>
 
 ```text
@@ -147,4 +148,38 @@ pyenvを利用して3.11.9のバージョンを共存させた
 　　　pyenv shell 3.11.9　を実行すること
 ```
 </details>
+
+python2の46635.pyをpython3に変更し終えたら以下コマンドで実行
+python3 46635.py -u http://IP | less
+（テキストファイル出力、less出力しないと空行が大量生成されて見づらいため）
+⇒しかし、スクリプトが毎回画面クリアをしているため
+　以下のような返答が来る
+ <details>
+<summary>46635.py実行結果</summary>
+
+```text
+c
+[*] Try: 1
+c
+```
+</details>
+
+⇒上記結果は、URLをちゃんと脆弱性のあるパスまで指定していないことが原因と判明
+
+python3 46635.py -u http://IP/simple/ > sqli.txt  
+にて結果をテキストに出力させる  
+
+[+] Salt for password found: ハッシュ
+[+] Username found: xxx
+[+] Email found: xxx
+[+] Password found: ハッシュ
+
+といった結果が複数出力されるため、一番最後の
+Salt for password found
+Password found
+のみファイル保存
+⇒そのため<inc>ハッシュ値:ハッシュ値</inc>という形にしてjohn実行
+
+
+
 
