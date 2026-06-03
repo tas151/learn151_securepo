@@ -3,6 +3,19 @@
 権限昇格ユーザを調査し終えても、それのパスワードが必要になる
 パスワードを調べるにはjohn the Ripper（力づく）で調査する必要がある
 
+・辞書攻撃
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt  
+⇒john --status  
+　⇒john --show hash.txt
+
+・ルール攻撃（辞書を強化）
+john --wordlist=rockyou.txt --rules hash.txt
+
+・インクリメンタル（総当たり）
+john --incremental hash.txt
+（時間がかかる）
+
+
 その調査の前段階として、侵入できるユーザに対して以下コマンド
 
 sudo -l
