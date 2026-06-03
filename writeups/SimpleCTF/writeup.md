@@ -178,7 +178,7 @@ python3 46635.py -u http://IP/simple/ > sqli.txt
 Salt for password found  
 Password found  
 のみファイル保存  
-⇒そのため<ins>ハッシュ値:ハッシュ値</ins>という形にしてjohn実行
+⇒そのためハッシュ値:ハッシュ値という形にしてjohn実行
 
 
 
