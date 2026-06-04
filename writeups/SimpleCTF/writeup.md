@@ -180,6 +180,16 @@ Password found
 のみファイル保存  
 ⇒そのためハッシュ値:ハッシュ値という形にしてjohn実行
 
+johnの実行  
+john --wordlist=/usr/share/wordlists/rockyou.txt sqli1.txt  
+⇒これでは不正確
+今回はSaltありのMD5のため--format=dynamic_0をつけて実行（Saltなしは--format=raw-md5）
+※MD5かどうかの判断基準は32文字の0-9,a-fのみ使われている（16進数）のが確認できること
 
+john --format=dynamic_0 --incremental=Alnum --min-length=3 --max-length=6 sqli1.txt  
+で実行してもだめだった
+　⇒adminユーザでハッシュを抜いていないのではないかと推測
+ 　⇒PoCを見るとUsenameのところがadminでないため上記推測の可能性大
+  　⇒
 
 
