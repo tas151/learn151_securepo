@@ -187,9 +187,61 @@ john --wordlist=/usr/share/wordlists/rockyou.txt sqli1.txt
 ※MD5かどうかの判断基準は32文字の0-9,a-fのみ使われている（16進数）のが確認できること
 
 john --format=dynamic_0 --incremental=Alnum --min-length=3 --max-length=6 sqli1.txt  
-で実行してもだめだった
-　⇒adminユーザでハッシュを抜いていないのではないかと推測
- 　⇒PoCを見るとUsenameのところがadminでないため上記推測の可能性大
-  　⇒
+で実行してもだめだった  
+　⇒adminユーザでハッシュを抜いていないのではないかと推測  
+ 　⇒調査の結果PoCでハッシュ値を向く対象がadminでない判明
+  　⇒普遍的にadminを指定するようスクリプトを修正  
+   　⇒0x31をadmin%にするため"echo -n admin% | xxd -p"にてハッシュ値取得  
+    （0x31 = ASCII の “1”、SQLのなかではuser_id LIKE '1'と扱われる）
+
+     <details>
+<summary>調査の結論</summary>
+
+```text
+上記FTPからgetした内容と組み合わせると、
+FTPの内容：CTFの傾向から「Mitch」というシステムユーザ(Linux に実在する OS アカウント（SSH でログインできるユーザを含む全部)が存在、same pass the system userから特定のユーザと同じパスワードを設定している
+＝Mitchがadminと同じパスワードを持っている
+
+自分が思っていた攻略は
+1 SQLi で admin のハッシュを抜く
+2 それを John に渡す
+3 John が割る
+4 admin が出てくる
+5 そのパスワードで mitch に SSH
+だが、PoCの動作として
+SQLi で admin の salt と hash を抜く
+
+⇒最初に実行したスクリプト修正前の結果で問題はなかった。（adminを指定して抽出しないでよかった）
+
+☆johnを使ってclackしようとしたのが間違い
+
+johnは形式がわかっているハッシュなら割れる
+今回はCMSMS特有のフォーマットため、PoCにワードリストを指定して割らなくてはならない
+
+--以下はPoCに書いてある--
+hash = md5(salt + word)
+if hash == target_hash:
+    print("Password found:", word)
+
+hash = md5(salt + password)というのはjohnが割れるmd5(password) の形式と一致しない
+⇒johnでは割れない。ということがわかる
+
+じゃあどうやって割るのか
+python3 46635.py -h        
+Usage: 46635.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -u URL, --url=URL     Base target uri (ex. http://10.10.10.100/cms)
+  -w WORDLIST, --wordlist=WORDLIST
+                        Wordlist for crack admin password
+  -c, --crack           Crack password with wordlist
+
+これを見るに、-c,--crackで割れると記載されている
+
+つまり、今回の脆弱性のPoCは出力するハッシュ値が特殊である。johnで割れず辞書指定して-c,--crackで割るのが正解。
+
+```
+</details>
 
 
