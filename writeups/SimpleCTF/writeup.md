@@ -115,11 +115,11 @@ Shellcodes: No Results
 　WebからCVEを特定する  
  　その結果**CVE-2019-9053**と判明したため、回答。
 
-4 What's the password?
+4 **What's the password?**
 
 ⇒HTTP調査の結果より、脆弱性の種類は SQLI (SQL Injection) と判明した。
 
-5 What's the password?
+5 **What's the password?**
 
 ⇒脆弱性とPOCが判明したため、実際に動かしていく  
 　が、この46635.pyファイルが2.x用であったため、これを3.x用にしなければならない
