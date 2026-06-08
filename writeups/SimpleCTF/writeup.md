@@ -270,3 +270,10 @@ python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/r
 問１で調査したnmap結果から　ssh　と回答  
 ssh -p 2222 mitch@IP (ポート指定しないとつながらない)　
 ※ポート指定しないとデフォルトの22につなごうとしてしまう
+
+7 **What's the user flag?**
+問6で侵入後、lsした際にuser.txtがあったため、それをcatした。
+$ cat user.txt
+G00d j0b, keep up!
+
+8 **Is there any other user in the home directory? What's its name?**
