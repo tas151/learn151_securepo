@@ -131,13 +131,14 @@ Shellcodes: No Results
 ⇒何度も/etc/skel/bashrcから初期化したがなおらず  
 ⇒そもそもkali linuxはbashシェルじゃなくてzshシェルを使っていることが分かった(echo $SHELLより)  
 そのためpyenvの設定をzshrcに記載した
+
 <details>
 <summary>46635.pyを3.x用に変換する際にものすごく詰まったため、何をやったかを記載</summary>
 
 ```text
 内容を完全に理解できているとはいいがたいが、
 pyenvを利用して3.11.9のバージョンを共存させた
-それをpython3 -m python3 -w 46635.py で3.11用に変換した
+それをpython3 -m lib2to3 -w 46635.py で3.11用に変換した
 （python3はlib2to3がある親ディレクトリ）
 そのままでは使えないため、手動で修正を試みたのだが、ここで詰まった
 最終的な原因としてはインデントのずれ、と推測
@@ -262,4 +263,10 @@ python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/r
 ```
 </details>
 
-上記結果より、**secret**と回答
+上記結果より、secretと回答
+
+
+6 **Where can you login with the details obtained?**  
+問１で調査したnmap結果から　ssh　と回答  
+ssh -p 2222 mitch@IP (ポート指定しないとつながらない)　
+※ポート指定しないとデフォルトの22につなごうとしてしまう
