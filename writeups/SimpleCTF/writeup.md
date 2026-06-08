@@ -195,7 +195,7 @@ john --format=dynamic_0 --incremental=Alnum --min-length=3 --max-length=6 sqli1.
    　⇒0x31をadmin%にするため"echo -n admin% | xxd -p"にてハッシュ値取得  
     （0x31 = ASCII の “1”、SQLのなかではuser_id LIKE '1'と扱われる）
 
-     <details>
+<details>
 <summary>調査の結論</summary>
 
 ```text
