@@ -300,8 +300,6 @@ sudo vimでエディタが開いた後に:!sh
 ```text
 $ sudo vim -c ':!sh'
 
-# ^[[2;2R^C
-# 
 # whoami
 root
 # id
