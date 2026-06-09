@@ -127,7 +127,7 @@ Shellcodes: No Results
  ⇒しかし、kaliのOSの中核であるpythonを削除したり上書きすると壊れてしまう。  
  　そのため、pyenv（pythonバージョンの共存）を環境で使えるようにする。（別の部屋を追加するイメージ）
 
-・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっとエラーがはかれた  
+・bashrcの内容にpyenvを使えるようPATHとかを追加していたがずっfとエラーがはかれた  
 ⇒何度も/etc/skel/bashrcから初期化したがなおらず  
 ⇒そもそもkali linuxはbashシェルじゃなくてzshシェルを使っていることが分かった(echo $SHELLより)  
 そのためpyenvの設定をzshrcに記載した
@@ -165,7 +165,7 @@ python3 46635.py -u http://IP | less
 ```
 </details>
 
-⇒上記結果は、URLをちゃんと脆弱性のあるパスまで指定していないことが原因と判明
+⇒上記結果から、URLをちゃんと脆弱性のあるパスまで指定していないことが原因と推測
 
 python3 46635.py -u http://IP/simple/ > sqli.txt  
 にて結果をテキストに出力させる  
