@@ -38,14 +38,11 @@ UNION：同じ形の表どうしを上からくっつけて、1つの表にす�
 INSERT：テーブルに新しい行挿入  
 UPDATE：既存の行を上書きする  
 DELETE：1行以上の削除。WHERE で“どの行を消すか”を決める。LIMIT で削除数を絞れる（MySQL系）
-<detail>
-<summary>MySQL系</summary>
 
-```text
+MySQL系
 MySQLとその派生であるMairiaDBなど
 MySQLとほぼ同じ文法で動くデータベース群をさす
-```
-</details>
+
 
 # SQLインジェクションの流れ
 普通のアクセス　
