@@ -89,6 +89,35 @@ SELECT * FROM blog WHERE id=2; → private=0 のチェックが消えた！
 普通に id=2 を指定しても見れない。でも ;-- を入れて SQL の後半を消すと、  
 “公開記事だけ”という条件が消えて、非公開記事まで見えてしまう。  
 
+```text
+Burpsuiteのリクエスト
+GET /filter?category=Corporate+gifts HTTP/2
+Host: 0a990061047aba1f8098dfb200db0037.web-security-academy.net
+Cookie: session=Dmto7QyAqYsONQa7ZkBTzRgKr1UWIceP
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://0a990061047aba1f8098dfb200db0037.web-security-academy.net/
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Priority: u=0, i
+Te: trailers
+
+GETにある ? 以降がユーザ入力（候補となる(必要要件)）  
+かつ、その値がサーバ側の SQL に使われていることが判断基準となる
+その値がサーバ側の SQL に使われている判断基準  
+1 値を変えるとページの内容が変わる(単純な画面遷移（Corporate gifts → Pets）⇒where句が使われているかも？？)  
+2 不正な文字を入れるとエラーが出る('を入れたらおかしくなるなど（500エラーや画面が白くなる）)
+↓SQLi疑惑大  
+3 ' OR 1=1-- を入れると結果が増える  
+⇒SQLi確定
+
+
+
 
 
 
