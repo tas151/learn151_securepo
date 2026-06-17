@@ -1,7 +1,7 @@
 # Lab: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data
 
 ## 概要
-このラボでは、"category="にwhere句が仕込まれておりサニタイズしていなかったため、SQLインジェクションが実現した。
+このラボでは、SQL文のwhere句にユーザ入力が連結しており、サニタイズされていないためSQLインジェクションが起きた。
 意図しない動き（商品の全表示）を実現した。
 
 ## 対象エンドポイント
