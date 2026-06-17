@@ -5,26 +5,29 @@
 意図しない動き（商品の全表示）を実現した。
 
 ## 対象エンドポイント
-”category=”が攻撃委ポイントとなっている。
-”category=' OR 1=1 --”で実現。
+
 
 ## 脆弱性の原因
-SQL文がURLに埋め込まれていた。
-'や/などの文字に対してエスケープ処理がされていないため、”category='' OR 1=1 --'”となりSQL文が壊れてしまっている。
+GET /filter?category= の category パラメータが SQL の WHERE 句に
+直接使用（文字連結）されているため、攻撃ポイントとなる。
 
-## リスク
-この脆弱性を悪用すると、本来表示されるはずのない隠蔽された情報が表示されてしまう。
+
+## ビジネスリスク
+機密性への影響：顧客情報や取引先の情報などの情報が漏れてしまうリスクがある
+完全性への影響：
+可用性への影響：
+
 
 ## 再現手順
+1.対象URL
 https://0af600ae03202ec281c1c0ad00c000f8.web-security-academy.net/
- 上記URLをユーザ入力ができる状態にする
+2.ユーザ入力箇所を特定する
 https://0af600ae03202ec281c1c0ad00c000f8.web-security-academy.net/filter?category=
- 上記URLは裏では
-SELECT * FROM PRODUCTS WHERE category=''
+3.SELECT * FROM PRODUCTS WHERE category=''
  という状態で待機していると推測。
 https://0af600ae03202ec281c1c0ad00c000f8.web-security-academy.net/filter?category='
  レスポンスが500．web上でinternal server errorとなったことを確認。
- 
+4.OR 1=2 --を実行して、SQL文が
 <details>
 <summary>HTTPリクエスト/レスポンス</summary>
   
