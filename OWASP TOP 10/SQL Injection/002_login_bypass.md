@@ -21,7 +21,7 @@ csrf=67b3jeptYQR9pnX8smAzCjgaE82bsZRN& の username,password パラメータが 
 ・管理者権限の奪取
 
 ## 再現手順
-1 対象URLへアクセス https://〜/login　
+1 対象URLへアクセス https://〜/login  
 2 username,password パラメータが SQL の WHERE 句に使用されていると推測しました。  
 3 ' を入力し、500エラーが発生することを確認 → SQL 文が壊れていることを示します。  
 4 usernameパラメータにadministrator、passwordパラメータに' OR 1=1 -- を入力し、認証をすり抜けたこと確認しました。 → 条件式が常に TRUEとなり、usersテーブルの結果セットの先頭行（administrator）が返却され、認証が成立しました。（usernameパラメータについてはadministratorでなく適当な文字でも認証すり抜けたこと確認しました。）  
