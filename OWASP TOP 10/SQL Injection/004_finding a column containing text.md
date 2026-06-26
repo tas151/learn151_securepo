@@ -1,9 +1,9 @@
-# Lab: SQL injection UNION attack, determining the number of columns returned by the query
+# Lab: SQL injection UNION attack, finding a column containing text
 ## 概要
 対象アプリケーションのcategoryパラメータに対して、ユーザ入力がSQL文にそのまま文字連結されていることを確認しました。  
 ユーザ入力の値に対するエスケープ処理やパラメータバインドをしていないため、攻撃者はアプリケーションの想定しないSQLを実行できます。  
 本検証では' UNION SELECT NULL,NULL,NULL--を用いて カラム数が3であることを確認し、  
-' UNION SELECT NULL,'0YaD7a',NULL-- を用いて文字列を受け取れるカラムが存在することを確認しました。
+' UNION SELECT NULL,'y9LdLy',NULL-- を用いて文字列を受け取れるカラムが存在することを確認しました。
 この問題は認証回避や情報漏洩、データベース構造の漏洩につながる重大なリスクを抱えています。   
 
 ## 対象エンドポイント
@@ -28,8 +28,8 @@ https://〜/filter?category=
 2 category パラメータが SQL の WHERE 句に使用されていると推測  
 3 ' を入力し、500エラーが発生することを確認  
  → SQL 文が壊れていることを示す  
-4 ' OR 1=1 -- を入力し、商品が全件表示されることを確認  
- → 条件式が常に TRUE になっている  
+4 ' order by 1 -- 数を順番に上げていき、カラム数が3であることを推測
+5 ' union select NULL,'y9LdLy',NULL -- で2カラム目が文字列を受け取れることを確認
 <details>
 <summary>3 HTTPリクエスト/レスポンス</summary>
   
