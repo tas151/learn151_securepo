@@ -76,6 +76,7 @@ HTTP/2 500 Internal Server Error
   
 6 指定されたランダム値である'y9LdLy'をNULLに順に当てはめていき、  
 ' union select NULL,'y9LdLy',NULL -- で2カラム目が文字列を受け取れることを確認
+→ランダム値がweb上に表示されたため、外部からSQL操作できたこと実証
 
 <details>
 <summary>6 HTTPリクエスト/レスポンス</summary>
@@ -94,8 +95,6 @@ HTTP/2 200 OK
 <h1>Pets&apos; union select null,&apos;F53rJS&apos;,null --</h1>
 <tr><th>F53rJS</th></tr>
 
-
- 
 リクエスト
 GET /filter?category=Pets' union select null,null,'y9LdLy' -- HTTP/2
   
@@ -104,14 +103,6 @@ HTTP/2 500 Internal Server Error
 
    
 </details>
-
-## 追加調査
-本脆弱性がUNION-based SQL Injectionに発展するか確認するため、
-UNION SELECTを用いた列数調査を実施しました。
-結果、アプリケーションのクエリは3列であることを確認しました。  
-これにより、攻撃者はデータベースに任意の SELECT 文を混在させることが可能なため、　
-データベース内の情報（例：ユーザー情報、テーブル一覧、カラム一覧など）を取得できる状態であることが判明しました。　
-→ 本脆弱性は情報漏洩・認証回避・データ改ざんに発展しうる重大なリスクがあります。
 
 
 ## 対策
@@ -122,5 +113,6 @@ UNION SELECTを用いた列数調査を実施しました。
 
 
 ## 学習メモ（学んだこと）
-・UNION を成功させるには、アプリケーション側の SELECT 文と同じ列数に合わせる必要があり、その列数を外部から調査する工程が重要であると理解した。
+・payloadを埋め込むにあたって前段であるカラム数の特定が必須であることを理解。
+抽出すべき情報はすべてテキスト型のみであるため、今回はランダム値であったが同様の英数字で調査をすることで、何カラム目がテキスト型かを判別できることを理解。
 
