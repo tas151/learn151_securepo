@@ -23,9 +23,9 @@ GET /?search= に入る入力値が適切なエスケープ処理を行わない
 
 ## 再現手順
 1 対象URLへアクセス https://〜/?search=  
-2 username,password パラメータが SQL の WHERE 句に使用されていると推測しました。  
-3 ' を入力し、500エラーが発生することを確認 → SQL 文が壊れていることを示します。  
-4 usernameパラメータにadministrator、passwordパラメータに' OR 1=1 -- を入力し、認証をすり抜けたこと確認しました。 → 条件式が常に TRUEとなり、usersテーブルの結果セットの先頭行（administrator）が返却され、認証が成立しました。（usernameパラメータについてはadministratorでなく適当な文字でも認証すり抜けたこと確認しました。）  
+2 GET /?search=testを入力し<h1>ないにtestが表示されたため、XSSであると推測しました。  
+3 <script>alert(1)</script> を入力し、alertが発生することを確認しました。  
+　これにより反射型XSSが成立することを確認しました。 
 
 <details>
 <summary>3 HTTPリクエスト/レスポンス</summary>
