@@ -38,7 +38,7 @@ CTF と Web 診断では求められるアウトプットが異なるため、�
 - **[現在進行中] Cross-Site Scripting (XSS)**  
   - 7月下旬完了目標。反射型・格納型XSSの挙動とエスケープ処理の検証。
 
-- **[次ステップ] IDOR / Access Control**  
+- **[次ステップ] CSRF,IDOR / Access Control**  
   - 8月中旬着手予定。認可制御の不備に関する検証。
 
 現時点では SQL Injection と XSS を中心に検証していますが、これらは Web 脆弱性の基礎であり、  
